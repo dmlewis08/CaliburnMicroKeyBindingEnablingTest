@@ -23,7 +23,7 @@ namespace CaliburnMicroKeyBindingEnablingTest.ViewModels
 
         Task DoSecondAsyncThingAsync();
         bool CanDoSecondAsyncThing { get; }
-        void ChangeEnabledForSecondAsyncThing();
+        void ChangeEnabledForDoSecondAsyncThing();
     }
 
     internal class ShellViewModel : Screen, IShellViewModel
@@ -94,7 +94,7 @@ namespace CaliburnMicroKeyBindingEnablingTest.ViewModels
             private set => Set(ref _canDoSecondAsyncThing, value);
         }
 
-        public void ChangeEnabledForSecondAsyncThing()
+        public void ChangeEnabledForDoSecondAsyncThing()
         {
             CanDoSecondAsyncThing = !CanDoSecondAsyncThing;
         }
