@@ -8,31 +8,113 @@
         xmlns:local="clr-namespace:CaliburnMicroKeyBindingEnablingTest.Views"
         mc:Ignorable="d"
         Title="ShellView"
-        Height="200"
-        Width="500">
+        Height="500"
+        Width="500"
+        cm:Message.Attach="[Gesture Ctrl+F] = [Call DoSecondThing]">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="Padding"
+                    Value="5" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping"
+                    Value="Wrap" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+        </Style>
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:KeyTrigger Key="D"
                       Modifiers="Ctrl">
             <cm:ActionMessage MethodName="DoThing" />
         </i:KeyTrigger>
+        <i:KeyTrigger Key="G"
+                      Modifiers="Ctrl">
+            <i:CallMethodAction MethodName="DoAsyncThingAsync"
+                                TargetObject="{Binding}" />
+        </i:KeyTrigger>
+        <i:KeyTrigger Key="H"
+                      Modifiers="Ctrl">
+            <cm:ActionMessage MethodName="DoSecondAsyncThingAsync" />
+        </i:KeyTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height=" auto" />
+        </Grid.RowDefinitions>
 
-        <Button Content="Do Thing (Ctrl+D)"
-                Padding="5"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Name="DoThing" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button Name="DoThing">
+                <TextBlock>Do Thing <LineBreak />
+                    (Ctrl+D to do it via ActionMessage on a KeyBinding in the Window)</TextBlock>
+            </Button>
 
-        <Button Grid.Column="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Padding="5"
-                Name="ChangeEnabledForDoThing"
-                Content="Change Enabled For DoThing" />
+            <Button Grid.Column="1"
+                    Name="ChangeEnabledForDoThing">
+                <TextBlock>Change Enabled For DoThing</TextBlock>
+            </Button>
+
+            <Button Grid.Row="1"
+                    Name="DoSecondThing">
+                <TextBlock>Do Second Thing<LineBreak />
+                    (Ctrl+F to do it via Attach.Message on window)</TextBlock>
+            </Button>
+
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Name="ChangeEnabledForDoSecondThing">
+                <TextBlock>Change enabled for Do Second Thing</TextBlock>
+            </Button>
+
+            <Button Grid.Row="2"
+                    Name="DoAsyncThingAsync">
+                <TextBlock>Do an async thing<LineBreak />
+                    (Ctrl+G to do it via CallMethodAction on Window KeyBinding)</TextBlock>
+            </Button>
+
+            <Button Grid.Row="2"
+                    Grid.Column="1"
+                    Name="ChangeEnabledForDoAsyncThing">
+                <TextBlock>Change enabled for DoAsyncThing</TextBlock>
+            </Button>
+
+            <Button Grid.Row="3"
+                    Name="DoSecondAsyncThing">
+                <TextBlock>Do a second async thing<LineBreak />
+                (Ctrl+H to do it via ActionMessage on a KeyBinding on the Window)</TextBlock>
+            </Button>
+
+            <Button Grid.Row="3"
+                    Grid.Column="1"
+                    Name="ChangeEnabledForDoSecondAsyncThing">
+                <TextBlock>Change enabled for DoSecondAsyncThing</TextBlock>
+            </Button>
+        </Grid>
+        
+        
+
+        <!--<TextBlock TextWrapping="Wrap"
+                   Grid.Row="1">
+            Press Ctrl+F to do the thing but not through the button.<LineBreak />
+            Press Ctrl+G to do an asynchronous thing.
+        </TextBlock>-->
     </Grid>
 </Window>
